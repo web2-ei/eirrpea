@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRISK CHATBOT</title>
+    <script src="brisk.js" defer></script>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        #sidebar {
+            width: 15%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #logoContainer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 45%;
+            height: 55px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .tip {
+            width: 100%;
+            height: 270px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .top-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .top-buttons button {
+            margin: 5px;
+            padding: 10px;
+            width: 90%;
+            border: none;
+            border-radius: 5px;
+            background-color: #1e90ff;
+            color: #fff;
+            cursor: pointer;
+        }
+        #chatbox {
+            width: 100%;
+            margin-right: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #1a1a1a;
+            box-shadow: 0 0 10px #000;
+        }
+        #messages {
+            height: 500px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #2b2b2b;
+        }
+        #userInput {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+        #sendButton {
+            width: 12%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1e90ff;
+            color: #fff;
+            cursor: pointer;
+            position: 10px
+        }
+        .user-message {
+            color: #1e90ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .bot-message {
+            color: #00ff00;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        #adBanner {
+            width: 25%;
+            height: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #1a1a1a;
+            box-shadow: 0 0 10px #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .errorbutton {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .errorbutton button {
+            margin: 3px;
+            padding: 10px;
+            width: 90%;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff1e1e;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            width: 100%;
+            display: flex;
+            margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar">
+            <div id="logoContainer">
+                <div class="logo"><img src="eirrpealogo.png" alt="EIRRPEA"></div>
+                <div class="logo">Brisk</div>
+            </div>
+            <div class="top-buttons">
+                <button onclick="window.location.href='#'">Image Generation</button>
+                <button onclick="window.location.href='#'">Vídeo Generation</button>
+                <button onclick="window.location.href='#'">Math</button>
+                <button onclick="window.location.href='#'">Coding</button>
+                <div class="errorbutton"><button onclick="window.location.href='#'">Report Error</button></div>
+            </div>
+            <div>
+                <div class="tip">
+                    Tip from the EIRRPEA's developers team: <br><br>
+                    To have a better user experience, try using only key words.<br><br>
+                    As an example: in case you want to know about AI, Brisk will probably give a better answer when asked "AI" instead of when it is asked "What is AI?".                </div>
+            </div>
+        </div>
+        <div id="chatbox">
+            <div id="messages"></div>
+            <input type="text" id="userInput" placeholder="Type your message here...">
+            <button id="sendButton" onclick="sendMessage()">Send</button>
+        </div>
+        
+
+    </div>
+
+</body>
+</html>
