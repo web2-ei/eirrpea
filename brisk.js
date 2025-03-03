@@ -4891,28 +4891,429 @@ return getResponse(tag, data, userMessage);
 }
 
 
+const translationDictionary = {
+        // Italian
+        "ciao": "hello",
+        "arrivederci": "goodbye",
+        "grazie": "thank you",
+        "per favore": "please",
+        "come stai": "how are you",
+        "bene": "good",
 
+        // Spanish
+        "hola": "hello",
+        "adios": "goodbye",
+        "gracias": "thank you",
+        "por favor": "please",
+        "cómo estás": "how are you",
+        "bien": "good",
+    
+        // French
+        "bonjour": "hello",
+        "au revoir": "goodbye",
+        "merci": "thank you",
+        "s'il vous plaît": "please",
+        "comment ça va": "how are you",
+        "bien": "good",
+    
+        // German
+        "hallo": "hello",
+        "tschüss": "goodbye",
+        "danke": "thank you",
+        "bitte": "please",
+        "wie geht's": "how are you",
+        "gut": "good",
+
+        //Portuguese
+        "olá": "hello",
+        "bom dia": "good morning",
+        "boa tarde": "good afternoon",
+        "boa noite": "good night",
+        "tchau": "bye",
+        "adeus": "goodbye",
+        "por favor": "please",
+        "obrigado": "thank you",
+        "de nada": "you're welcome",
+        "sim": "yes",
+        "não": "no",
+        "como você está": "how are you",
+        "estou bem": "I am fine",
+        "e você": "and you",
+        "prazer em conhecê-lo": "nice to meet you",
+        "desculpe": "sorry",
+        "com licença": "excuse me",
+        "eu te amo": "I love you",
+        "até logo": "see you later",
+        "até amanhã": "see you tomorrow",
+        "me ajude": "help me",
+        "um": "one",
+        "dois": "two",
+        "três": "three",
+        "quatro": "four",
+        "cinco": "five",
+        "seis": "six",
+        "sete": "seven",
+        "oito": "eight",
+        "nove": "nine",
+        "dez": "ten",
+        "segunda-feira": "monday",
+        "terça-feira": "tuesday",
+        "quarta-feira": "wednesday",
+        "quinta-feira": "thursday",
+        "sexta-feira": "friday",
+        "sábado": "saturday",
+        "domingo": "sunday",
+        "janeiro": "january",
+        "fevereiro": "february",
+        "março": "march",
+        "abril": "april",
+        "maio": "may",
+        "junho": "june",
+        "julho": "july",
+        "agosto": "august",
+        "setembro": "september",
+        "outubro": "october",
+        "novembro": "november",
+        "dezembro": "december",
+        "pai": "father",
+        "mãe": "mother",
+        "irmão": "brother",
+        "irmã": "sister",
+        "avô": "grandfather",
+        "avó": "grandmother",
+        "filho": "son",
+        "filha": "daughter",
+        "tio": "uncle",
+        "tia": "aunt",
+        "primo": "cousin (male)",
+        "prima": "cousin (female)",
+        "comida": "food",
+        "água": "water",
+        "pão": "bread",
+        "carne": "meat",
+        "fruta": "fruit",
+        "peixe": "fish",
+        "arroz": "rice",
+        "salada": "salad",
+        "sopa": "soup",
+        "café": "coffee",
+        "leite": "milk",
+        "açúcar": "sugar",
+        "vermelho": "red",
+        "azul": "blue",
+        "verde": "green",
+        "amarelo": "yellow",
+        "preto": "black",
+        "branco": "white",
+        "cinza": "gray",
+        "rosa": "pink",
+        "marrom": "brown",
+        "roxo": "purple",
+        "esquerda": "left",
+        "direita": "right",
+        "frente": "front",
+        "atrás": "back",
+        "acima": "above",
+        "abaixo": "below",
+        "perto": "near",
+        "longe": "far",
+        "aqui": "here",
+        "ali": "there",
+        "hora": "hour",
+        "minuto": "minute",
+        "segundo": "second",
+        "hoje": "today",
+        "ontem": "yesterday",
+        "amanhã": "tomorrow",
+        "semana": "week",
+        "mês": "month",
+        "ano": "year",
+        "amigo": "friend",
+        "amor": "love",
+        "trabalho": "work",
+        "dinheiro": "money",
+        "carro": "car",
+        "casa": "house",
+        "cidade": "city",
+        "país": "country",
+        "mundo": "world",
+        "tempo": "time",
+        "feliz": "happy",
+        "triste": "sad",
+        "grande": "big",
+        "pequeno": "small",
+            "escola": "school",
+            "professor": "teacher",
+            "aluno": "student",
+            "livro": "book",
+            "caneta": "pen",
+            "mesa": "table",
+            "cadeira": "chair",
+            "janela": "window",
+            "porta": "door",
+            "computador": "computer",
+            "telefone": "phone",
+            "papel": "paper",
+            "caderno": "notebook",
+            "relógio": "clock",
+            "bicicleta": "bicycle",
+            "ônibus": "bus",
+            "trem": "train",
+            "avião": "airplane",
+            "barco": "boat",
+            "moto": "motorcycle",
+            "rua": "street",
+            "estrada": "road",
+            "ponte": "bridge",
+            "rio": "river",
+            "mar": "sea",
+            "floresta": "forest",
+            "montanha": "mountain",
+            "praia": "beach",
+            "sol": "sun",
+            "lua": "moon",
+            "estrela": "star",
+            "nuvem": "cloud",
+            "chuva": "rain",
+            "vento": "wind",
+            "neve": "snow",
+            "fogo": "fire",
+            "água": "water",
+            "terra": "earth",
+            "ar": "air",
+            "animal": "animal",
+            "cachorro": "dog",
+            "gato": "cat",
+            "pássaro": "bird",
+            "peixe": "fish",
+            "cavalo": "horse",
+            "vaca": "cow",
+            "ovelha": "sheep",
+            "porco": "pig",
+            "galinha": "chicken",
+            "cobra": "snake",
+            "elefante": "elephant",
+            "leão": "lion",
+            "tigre": "tiger",
+            "macaco": "monkey",
+            "urso": "bear",
+            "camisa": "shirt",
+            "calça": "pants",
+            "sapato": "shoe",
+            "meia": "sock",
+            "casaco": "jacket",
+            "chapéu": "hat",
+            "óculos": "glasses",
+            "relógio de pulso": "watch",
+            "bolsa": "bag",
+            "mochila": "backpack",
+            "dinheiro": "money",
+            "cartão de crédito": "credit card",
+            "loja": "store",
+            "mercado": "market",
+            "farmácia": "pharmacy",
+            "hospital": "hospital",
+            "igreja": "church",
+            "banco": "bank",
+            "hotel": "hotel",
+            "restaurante": "restaurant",
+            "café": "cafe",
+            "supermercado": "supermarket",
+            "cinema": "movie theater",
+            "teatro": "theater",
+            "museu": "museum",
+            "parque": "park",
+            "biblioteca": "library",
+            "zoológico": "zoo",
+            "estádio": "stadium",
+            "ginásio": "gym",
+            "praça": "square",
+            "jardim": "garden",
+            "lago": "lake",
+            "ilha": "island",
+            "flor": "flower",
+            "árvore": "tree",
+            "folha": "leaf",
+            "fruta": "fruit",
+            "verdura": "vegetable",
+            "carne": "meat",
+            "suco": "juice",
+            "sorvete": "ice cream",
+            "chocolate": "chocolate",
+            "pizza": "pizza",
+            "bolo": "cake",
+        
+    
+        // Dutch
+        "hallo": "hello",
+        "tot ziens": "goodbye",
+        "dank je": "thank you",
+        "alsjeblieft": "please",
+        "hoe gaat het": "how are you",
+        "goed": "good",
+    
+        // Russian
+        "привет": "hello",
+        "до свидания": "goodbye",
+        "спасибо": "thank you",
+        "пожалуйста": "please",
+        "как дела": "how are you",
+        "хорошо": "good",
+    
+        // Chinese (Simplified)
+        "你好": "hello",
+        "再见": "goodbye",
+        "谢谢": "thank you",
+        "请": "please",
+        "你好吗": "how are you",
+        "好": "good",
+    
+        // Japanese
+        "こんにちは": "hello",
+        "さようなら": "goodbye",
+        "ありがとう": "thank you",
+        "お願いします": "please",
+        "お元気ですか": "how are you",
+        "元気": "good",
+    
+        // Korean
+        "안녕하세요": "hello",
+        "안녕히 가세요": "goodbye",
+        "감사합니다": "thank you",
+        "제발": "please",
+        "어떻게 지내세요": "how are you",
+        "좋아요": "good",
+    
+        // Arabic
+        "مرحبا": "hello",
+        "وداعا": "goodbye",
+        "شكرا": "thank you",
+        "من فضلك": "please",
+        "كيف حالك": "how are you",
+        "جيد": "good",
+    
+        // Hindi
+        "नमस्ते": "hello",
+        "अलविदा": "goodbye",
+        "धन्यवाद": "thank you",
+        "कृपया": "please",
+        "कैसे हैं आप": "how are you",
+        "अच्छा": "good",
+    
+        // Greek
+        "γεια σας": "hello",
+        "αντίο": "goodbye",
+        "ευχαριστώ": "thank you",
+        "παρακαλώ": "please",
+        "πώς είσαι": "how are you",
+        "καλά": "good",
+    
+        // Turkish
+        "merhaba": "hello",
+        "hoşça kal": "goodbye",
+        "teşekkür ederim": "thank you",
+        "lütfen": "please",
+        "nasılsın": "how are you",
+        "iyi": "good",
+    
+        // Polish
+        "cześć": "hello",
+        "do widzenia": "goodbye",
+        "dziękuję": "thank you",
+        "proszę": "please",
+        "jak się masz": "how are you",
+        "dobrze": "good",
+    
+        // Swedish
+        "hej": "hello",
+        "adjö": "goodbye",
+        "tack": "thank you",
+        "snälla": "please",
+        "hur mår du": "how are you",
+        "bra": "good",
+    
+        // Norwegian
+        "hallo": "hello",
+        "ha det": "goodbye",
+        "takk": "thank you",
+        "vær så snill": "please",
+        "hvordan har du det": "how are you",
+        "bra": "good",
+    
+        // Danish
+        "hej": "hello",
+        "farvel": "goodbye",
+        "tak": "thank you",
+        "vær venlig": "please",
+        "hvordan har du det": "how are you",
+        "godt": "good",
+    };
+
+
+    function translateToEnglish(input) {
+        const words = input.toLowerCase().split(/\s+/);
+        const translatedWords = [];
+        let i = 0;
+    
+        while (i < words.length) {
+            // Check for multi-word phrases first (i.e., phrases of 2 or 3 words)
+            let phrase = words[i];
+            if (i + 1 < words.length) {
+                const twoWordPhrase = words[i] + " " + words[i + 1];
+                if (translationDictionary[twoWordPhrase]) {
+                    translatedWords.push(translationDictionary[twoWordPhrase]);
+                    i += 2;
+                    continue;
+                }
+            }
+            if (i + 2 < words.length) {
+                const threeWordPhrase = words[i] + " " + words[i + 1] + " " + words[i + 2];
+                if (translationDictionary[threeWordPhrase]) {
+                    translatedWords.push(translationDictionary[threeWordPhrase]);
+                    i += 3;
+                    continue;
+                }
+            }
+    
+            // If no multi-word phrase match, check individual word
+            translatedWords.push(translationDictionary[phrase] || phrase);
+            i++;
+        }
+    
+        return translatedWords.join(" ");
+    }
+    
+    
 
 function sendMessage() {
-const userInput = document.getElementById("userInput").value.toLowerCase(); // Convert to lowercase
-const messages = document.getElementById("messages");
+    const userInput = document.getElementById("userInput").value.trim(); // No lowercase yet
+    const messages = document.getElementById("messages");
 
-if (userInput.trim() === "") return;
+    if (userInput === "") return;
 
-const userMessage = document.createElement("div");
-userMessage.className = "user-message";
-userMessage.innerText = "You: " + userInput;
-messages.appendChild(userMessage);
+    // Show user message before translation
+    const userMessage = document.createElement("div");
+    userMessage.className = "user-message";
+    userMessage.innerText = "You: " + userInput;
+    messages.appendChild(userMessage);
 
-const botResponse = processMessage(userInput);
-const botMessage = document.createElement("div");
-botMessage.className = "bot-message";
-botMessage.innerText = "Brisk: " + botResponse;
-messages.appendChild(botMessage);
+    // Translate the user input to English using the dictionary
+    const translatedInput = translateToEnglish(userInput);
+    console.log(`Translated input: '${translatedInput}'`);
 
-messages.scrollTop = messages.scrollHeight;
-document.getElementById("userInput").value = "";
+    // Process the translated message
+    const botResponse = processMessage(translatedInput);
+
+    // Display bot response
+    const botMessage = document.createElement("div");
+    botMessage.className = "bot-message";
+    botMessage.innerText = "Brisk: " + botResponse;
+    messages.appendChild(botMessage);
+    messages.scrollTop = messages.scrollHeight;
+
+    document.getElementById("userInput").value = "";
 }
+
 
 document.getElementById("userInput").addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
