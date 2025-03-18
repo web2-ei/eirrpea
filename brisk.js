@@ -4812,46 +4812,50 @@ function bagOfWords(tokenizedSentence, words) {
     return bag;
 }
 
-function predictClass(sentence, words, tags, threshold = 0.5) {
+function predictClass(sentence, words, tags, threshold = 0.1) {
+    // Tokenize and lemmatize user sentence
     const tokenizedSentence = tokenize(sentence);
-    const userSentence = tokenizedSentence.map(word => lemmatize(word)).join(" ").toLowerCase(); // Join and lemmatize
+    const userSentence = tokenizedSentence.map(word => lemmatize(word)).join(" ").toLowerCase(); 
 
     // Step 1: Exact match check with lemmatized patterns
     for (const { words: patternWords, tag } of xy) {
-        const patternSentence = patternWords.map(word => lemmatize(word)).join(" ").toLowerCase(); // Lemmatize patterns too
+        const patternSentence = patternWords.map(word => lemmatize(word)).join(" ").toLowerCase();
         if (patternSentence === userSentence) {
             console.log(`Exact match found for input: '${userSentence}' with tag: '${tag}'`);
-            return [tag, 1.0];
+            return [tag, 1.0]; // Return immediately if an exact match is found
         }
     }
 
     // Step 2: Approximate match using cosine similarity
-    const bag = bagOfWords(tokenizedSentence, words);
+    const bag = bagOfWords(tokenizedSentence, words); // User input as bag of words
     let highestSimilarity = 0;
     let bestTag = "unknown";
 
-    xy.forEach(({ words, tag }) => {
-        const patternBag = bagOfWords(words, allWords);
-        const similarity = cosineSimilarity(bag, patternBag);
+    // Iterate through all patterns in xy
+    xy.forEach(({ words: patternWords, tag }) => {
+        const patternBag = bagOfWords(patternWords, words); // Pattern as bag of words
+        const similarity = cosineSimilarity(bag, patternBag); // Calculate cosine similarity
+
         console.log(`Checking similarity for tag: '${tag}', Similarity: ${similarity}`);
+
+        // Update if a better similarity is found
         if (similarity > highestSimilarity) {
             highestSimilarity = similarity;
             bestTag = tag;
         }
     });
 
-
-
     console.log(`Best tag: ${bestTag}, Similarity: ${highestSimilarity}`);
 
-    // Step 3: If no exact match, return the best approximate match if above the threshold
-    if (highestSimilarity < threshold) {
+    // Step 3: Return the best match if it meets the threshold
+    if (highestSimilarity >= threshold) {
+        return [bestTag, highestSimilarity]; // Return best approximate match if above threshold
+    } else {
         console.log("No suitable match found. Returning fallback.");
-        return ["unknown", highestSimilarity]; // Fallback if below the threshold
+        return ["unknown", highestSimilarity]; // Fallback for low similarity
     }
-
-    return [bestTag, highestSimilarity]; // Return the best approximate match
 }
+
 
 
 
