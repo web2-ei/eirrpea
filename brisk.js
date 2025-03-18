@@ -4918,7 +4918,6 @@ const translationDictionary = {
         "merci": "thank you",
         "s'il vous plaît": "please",
         "comment ça va": "how are you",
-        "bien": "good",
     
         // German
         "hallo": "hello",
